@@ -6,7 +6,7 @@ Mesajlaşma sistemleri genel olarak uygulamaların eşzamansız veri alışveri�
 -  Aracısız (brokerless) çalışan, temel ağ soketlerine (TCP, IPC) mesajlaşma yetenekleri ekleyen süper hızlı bir kütüphanedir.
 
 ## <span style="color:purple">RabbitMQ:</span>
--  Geleneksel ve esnek mesaj yönlendirmesi yapan, AMQP (?) protokolüne dayalı tam teşekküllü bir mesaj aracısıdır. (message broker)
+-  Geleneksel ve esnek mesaj yönlendirmesi yapan, AMQP (Advanced Message Queuing Protocol : asenkron mesajlaşma sağlar.) protokolüne dayalı tam teşekküllü bir mesaj aracısıdır. (message broker)
 
 ## <span style="color:purple">Kafka:</span>
 -  Devasa veri akışlarını (streaming) ve olayları diske kaydederek işlemek için kullanılan dağıtır bir olay akış platformudur.
@@ -131,19 +131,19 @@ RabbitMQ'da üretici (Producer) mesajı doğrudan kuyruğa (Queue) **göndermez*
 
 RabbitMQ'da 4 temel Exchange tipi vardır (Burası mülakatlarda çok sorulur, yıldızlayabilirsin):
 
-- **1. Direct Exchange (Doğrudan Yönlendirme):**
+- **1. <span style="color: rgb(235, 120, 129)"> Direct Exchange (Doğrudan Yönlendirme):</span>
     
     - Mesajın üzerindeki etiket (Routing Key) ile kuyruğun etiketi **birebir** eşleşiyorsa mesaj o kuyruğa gider.
         
     - _Örnek:_ Etiketi "video.render" olan bir mesaj, sadece "video.render" isimli kuyruğa düşer. Nokta atışı gönderimdir.
         
-- **2. Fanout Exchange (Yayın / Megafon):**
+- **2.  <span style="color: rgb(235, 120, 129)"> Fanout Exchange (Yayın / Megafon): </span>
     
     - Mesajın etiketine hiç bakmaz. Gelen mesajı, kendisine bağlı olan **tüm kuyruklara** kopyalayarak gönderir.
         
     - _Örnek:_ Bir e-ticaret sitesinde "Sipariş Tamamlandı" olayı gerçekleştiğinde; Fatura, Stok ve Kargo kuyruklarının hepsine aynı anda bu bilginin gönderilmesi.
         
-- **3. Topic Exchange (Konu / Desen Eşleşmesi):**
+- **3.  <span style="color: rgb(235, 120, 129)"> Topic Exchange (Konu / Desen Eşleşmesi): </span>
     
     - Direct Exchange'in daha akıllı halidir. Birebir eşleşme yerine __joker karakterler (_ ve #)_* kullanarak desen (pattern) eşleşmesi yapar.
         
@@ -151,12 +151,12 @@ RabbitMQ'da 4 temel Exchange tipi vardır (Burası mülakatlarda çok sorulur, y
         
     - _Örnek:_ `log.error.*` etiketli bir kuyruk; `log.error.database` ve `log.error.server` mesajlarını alır ama `log.warning.database` mesajını almaz. Sistem loglarını ayırmak için mükemmeldir.
         
-- **4. Headers Exchange:**
+- **4.  <span style="color: rgb(235, 120, 129)"> Headers Exchange: </span>
     
     - Yönlendirmeyi etiket (Routing Key) ile değil, mesajın "Header" (başlık) kısmındaki verilere (Key-Value) göre yapar. Daha karmaşık kurallar için kullanılır ama Topic kadar yaygın değildir.
         
 
-### RabbitMQ'nun Avantajları
+### <span style="color: rgb(130, 212, 127)"> RabbitMQ'nun Avantajları </span>
 
 - **Güvenilirlik (Reliability):** Tüketici çökse bile mesajlar kuyrukta bekler (Hatta diske yazılıp kalıcı hale getirilebilir - Persistence). Tüketici ayağa kalktığında kaldığı yerden devam eder.
     
@@ -175,18 +175,18 @@ RabbitMQ'da 4 temel Exchange tipi vardır (Burası mülakatlarda çok sorulur, y
 
 Kafka'yı anlamak için şu üç temel kavrama hakim olmak şarttır:
 
-### 1. Log Tabanlı Topic (Konu)
+### 1. <span style="color: rgb(235, 120, 129)">Log Tabanlı Topic (Konu) </span>
 
 Kafka'da da mesajlar Topic'lere gönderilir ama buradaki Topic bir kuyruk değil, **Append-Only (Sadece Sona Ekleme Yapılan)** bir kaset veya seyir defteri gibidir. Yeni gelen mesaj hep en sona eklenir. Geçmişteki mesajlar değiştirilemez.
 
-### 2. Partition (Bölümleme)
+### 2. <span style="color: rgb(235, 120, 129)">Partition (Bölümleme) </span>
 
 Eğer saniyede milyonlarca veri geliyorsa, tek bir sunucu (veya tek bir dosya) bunu kaldıramaz. Kafka, bir Topic'i parçalara böler. Buna **Partition** denir.
 
 - Her Partition farklı bir sunucuda (Broker) tutulabilir. Bu sayede sistem yatayda sınırsız büyüyebilir (Horizontal Scaling). Kafka'nın devasa verilerle başa çıkabilmesinin sırrı budur.
     
 
-### 3. Offset (Konum / İşaretçi)
+### 3.<span style="color: rgb(235, 120, 129)"> Offset (Konum / İşaretçi) </span>
 
 RabbitMQ'da mesajın okunup okunmadığını Broker (sunucu) takip ediyordu. Kafka'da ise bu sorumluluk **Tüketiciye (Consumer)** aittir.
 
@@ -197,7 +197,7 @@ RabbitMQ'da mesajın okunup okunmadığını Broker (sunucu) takip ediyordu. Kaf
 
 Diyelim ki anlık olarak akan müşteri demografisi verilerinden ürün kategorisi tahmini yapan bir derin öğrenme modeli çalıştırıyorsun. İstanbul perakende trendleri gibi yoğun bir kaynaktan sisteme saniyede on binlerce işlem verisi (event) aktığında, modelinin bu hıza anında yetişmesi imkansızdır. Kafka, bu devasa veri selini Partition'larına diske yazarak tamponlar. Derin öğrenme modelin (Consumer) çökerse veya yeniden başlatılırsa hiçbir veri kaybolmaz; model ayağa kalktığında kaldığı **Offset'ten (kaldığı satırdan)** okumaya ve tahmin üretmeye tıkır tıkır devam eder.
 
-### Kafka'nın Avantajları
+### <span style="color: rgb(130, 212, 127)">Kafka'nın Avantajları </span>
 
 - **Replayability (Yeniden Oynatabilme):** Veriler diskte belirli bir süre (örneğin 7 gün) tutulduğu için, bir hata yaptığında "Tüketiciyi başa sar, verileri baştan tekrar işle" diyebilirsin.
     
@@ -217,7 +217,7 @@ Bu cihazların pili azdır, işlemci güçleri düşüktür ve bağlandıkları 
 
 MQTT de tıpkı diğerleri gibi **Pub/Sub (Yayınla ve Abone Ol)** mantığıyla çalışır ve ortada bir **Broker** (Aracı sunucu, örn: Mosquitto, HiveMQ) bulunur. Ancak onu özel yapan birkaç "hayat kurtarıcı" kavram vardır:
 
-### 1. Hiyerarşik Topic (Konu) Yapısı
+### 1. <span style="color: rgb(235, 120, 129)"> Hiyerarşik Topic (Konu) Yapısı </span>
 
 MQTT'de Topic'ler tıpkı bilgisayarındaki dosya dizinleri gibi `/` (eğik çizgi) ile ayrılır. Bu, milyonlarca cihazı yönetmeyi çok kolaylaştırır.
 
@@ -230,7 +230,7 @@ MQTT'de Topic'ler tıpkı bilgisayarındaki dosya dizinleri gibi `/` (eğik çiz
     - `#` (Kare): O seviyeden sonraki tüm alt başlıkları kapsar. (Örn: `ev/#` -> Evdeki tüm sensör verilerini alır).
         
 
-### 2. QoS (Quality of Service - Hizmet Kalitesi) Seviyeleri
+### 2. <span style="color: rgb(235, 120, 129)"> QoS (Quality of Service - Hizmet Kalitesi) Seviyeleri </span>
 
 MQTT'nin en çok sorulan ve en önemli özelliğidir. Ağın durumuna ve verinin kritiklik seviyesine göre 3 farklı teslimat garantisi sunar:
 
@@ -241,15 +241,15 @@ MQTT'nin en çok sorulan ve en önemli özelliğidir. Ağın durumuna ve verinin
 - **QoS 2 (Exactly once - Tam olarak bir kere):** En güvenli ama en yavaş yöntemdir. Mesajın sadece bir kez ve kesinlikle ulaştığından emin olmak için dört adımlı bir onay süreci işler. (Örn: Akıllı bir kilidi açma komutu. İki kere çalışmasını veya komutun kaybolmasını istemezsin.)
     
 
-### 3. Last Will and Testament (LWT - Son İstek ve Vasiyet)
+### 3.<span style="color: rgb(235, 120, 129)">  Last Will and Testament (LWT - Son İstek ve Vasiyet) </span>
 
 Eğer bir sensör veya cihaz, pili bittiği veya ağı koptuğu için aniden (Broker'a haber veremeden) çevrimdışı olursa, Broker bu durumu fark eder. Cihaz ilk bağlandığında Broker'a bıraktığı "Eğer aniden koparsam, şu Topic'e şu mesajı yayınla" vasiyetini devreye sokar. (Örn: "Sensör_X bağlantısı koptu" uyarısı göndermek).
 
-### 4. Retained Messages (Kalıcı Mesajlar)
+### 4.  <span style="color: rgb(235, 120, 129)">Retained Messages (Kalıcı Mesajlar) </span>
 
 Normalde Pub/Sub sistemlerinde, sen abone olmadan önce yayınlanan mesajları kaçırırsın. Ancak MQTT'de bir mesaja "Retained" bayrağı eklersen, Broker o Topic için gönderilen **en son mesajı** hafızasında tutar. Yeni bir cihaz o Topic'e abone olduğunda, hemen o son durumu (örneğin akıllı lambanın o anki "açık/kapalı" durumunu) öğrenir.
 
-### MQTT'nin Avantajları
+### <span style="color: rgb(130, 232, 127)"> MQTT'nin Avantajları </span>
 
 - Bant genişliğini (internet kotasını) çok az kullanır, paket başlıkları (header) sadece birkaç byte boyutundadır.
     
