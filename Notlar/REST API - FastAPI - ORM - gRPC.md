@@ -254,6 +254,36 @@ def urun_getir(urun_id : int, db: Session = Depends(get_db)):
 - proto uzantılı dosya bizim __Sözleşmemiz (Contract)__ diyebiliriz. 
 
 
+## "service" yapısı 
+
+```proto 
+service UrunServisi {
+  rpc UrunEkle (UrunEkleIstegi) returns (UrunYaniti) {}
+}
+
+```
+
+- FastAPI ile çok temel farklar bulunmaktadır. FastAPI "GET, POST, PUT, DELETE" __HTTP__ metodları kullanıyorduk. Bu kısımda ise her satırın başında ``` rpc```  kelimesini görmekteyiz. 
+  Bu yapıya __Remote Procedure Call ( Uzak Prosedür Çağrısı )__ deriz. 
+  Çağrılan fonksiyon arka planda ağ üzerinden sunucuya gider, çalışır ve cevabı geri getirir. Bu işlemler yapılırken __network__ işlemleri ile hiç uğraşılmaz. 
+
+
+## "message" yapısı
+
+```proto 
+message UrunEkleIstegi {
+  string ad = 1;
+  float fiyat = 2;
+}
+```
+
+- JSON formatında
+```json 
+{"ad" : "Masa", "fiyat" : 50 }
+``` 
+  
+  şeklinde verileri ve değerlerini atama işlemlerini yaparız fakat protobuf içerisinde ki "ad  = 1 " ve "fiyat = 2 " şeklinde ki atama yapma işlemlerini yapma nedenimiz;
+  __Bilgisayar "ad" kelimesini okumakla uğraşmasın sadece "1" numaralı kutuya baksın diye (Hız ve Performans da önemli ölçüde artış)__ kullanırız. Gereksiz kelime kalabalığı olmaz.
 
 
 | **Özellik**      | **FastAPI (REST) 🐍** | **gRPC (Protobuf) 📜**     |
@@ -261,3 +291,6 @@ def urun_getir(urun_id : int, db: Session = Depends(get_db)):
 | **Veri Tanımı**  | `Pydantic Model`      | `message`                  |
 | **Veri Tipleri** | `str`, `int`, `float` | `string`, `int32`, `float` |
 | **Alanlar**      | `ad: str`             | `string ad = 1;`           |
+
+---
+
