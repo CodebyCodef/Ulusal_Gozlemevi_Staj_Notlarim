@@ -94,3 +94,22 @@ KULLANICI (Browser)
 
 ---
 
+!!! CQRS
+
+CORS
+
+!!! Mediator
+
+İlgili konuların detaylarına bak. 
+
+Tasarım Mimarisi
+Gereksinimlerin mimariye aktarılması
+
+Clean Architecture
+Hexagonal Architecture
+N Katmanlı Mimari
+
+Her bir iş için öncelikle Core tanımlaması olacak ( Detaylı yazılım bilgileri haricinde yapılacak işler sonucu )
+
+
+

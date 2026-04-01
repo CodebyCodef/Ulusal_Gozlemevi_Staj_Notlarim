@@ -12,6 +12,7 @@
 ![[ORM Akış|1000]]
 
 
+
 - ###  ORM Mapping
 	![[ORM Mapping|700]]
 
