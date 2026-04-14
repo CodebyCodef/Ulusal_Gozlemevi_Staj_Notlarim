@@ -8,6 +8,7 @@ tags:
 ---
 ---
 
+
 # <span style="color:lightblue"> CQRS</span>
 
 #### (Command Query Responsibility Segregation)
