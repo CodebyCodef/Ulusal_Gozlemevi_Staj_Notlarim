@@ -43,7 +43,7 @@ ID TOKEN ^taNdi0B3
 REFRESH TOKEN ^mDxPTFXV
 
 ## Embedded Files
-212e3a7a2a8b1110ecc9140ad5a965bffb0955b0: [[resepsiyonist.png]]
+212e3a7a2a8b1110ecc9140ad5a965bffb0955b0: [[resepsiyonist 1.png]]
 
 %%
 ## Drawing
