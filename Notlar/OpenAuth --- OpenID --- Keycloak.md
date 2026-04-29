@@ -24,7 +24,7 @@ Yukarıdaki protokolleri (OAuth, OIDC, SAML) uygulaman için hazır bir paket ol
 
 
 
-![[OpenAuth - OpenID - Keycloak|1000]]
+![[OpenAuth - OpenID - Keycloak|| 500]]
 
 
 ![[OPENAUTH _ ONLY]]

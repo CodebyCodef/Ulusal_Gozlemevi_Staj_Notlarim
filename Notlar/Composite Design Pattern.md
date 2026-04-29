@@ -39,6 +39,10 @@ Component
          └── Leaf
 ```
 
+![[Pasted image 20260422100547.png|| 500]]
+
+![[Excalidraw/Composite Design Pattern || 900]]
+
 ---
 
 ## 🧪 Python Örneği
