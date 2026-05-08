@@ -21,7 +21,7 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6...
 * **Host:** İsteğin hangi alan adına (domain) gittiğini belirtir.
 
 * **Authorization:** Kullanıcının kimliğini kanıtlayan token bilgisini (genellikle `Bearer` prefix'i ile) taşır.
-
+ 
   
 
 ---

@@ -65,7 +65,7 @@ class Composite(Component):
 
     def add(self, component):
         self.children.append(component)
-
+ 
     def operation(self):
         print("Composite node")
         for child in self.children:
